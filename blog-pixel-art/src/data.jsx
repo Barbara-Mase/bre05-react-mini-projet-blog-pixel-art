@@ -1,4 +1,4 @@
-let datas = [
+let data = [
   {
     id: 1,
     title: "Les bases du Pixel Art",
@@ -49,4 +49,4 @@ let datas = [
   }
 ];
 
-export default datas;
+export default data;

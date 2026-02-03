@@ -4,40 +4,50 @@ import Post from "./Post.jsx";
 import './App.css'
 
 function App() {
+    //Déclare un state que l'on va pouvoir changer en fonction de ce que l'on veut montrer
+    const [state, setState] = useState({ page: "blog", post:null });
     
-    constructor(props) {
-        super(props);
-        this.readMore = this.readMore.bind(this)
+    //fonction qui permet d'afficher l'article après avoir cliqué sur "lire la suite"
+    function showPost(post)
+    {
+        //Déclaration d'un nouvel état
+        let newState = { page: "post", post:post };
+        //modification d'un nouvel état
+        setState(newState);
     }
     
-    
-    function readMore() {
-
-    const [state, setState] = useState('blog');
-        
-        if (state === 'blog') {
-            setState('post')
-        }
+    //Fonction qui permet de revenir en arrière
+    function backToBlog(event)
+    {
+        event.preventDefault();
+        //Déclaration du nouvel état
+        let newState = { page: "blog", post:null };
+        //changement de l'état
+        setState(newState);
     }
 
-
-        if(state === 'blog')
-        {
-            return (
-                <>
-                    <Blog fonction={this.readMore}/>
-                </>
-            )
-        }
-        else
-        {
-            return (
-                <>
-                    <a href="index.html" className="back-link">← Retour à l'accueil</a>
-                    <Post />
-                </>
-            )
-        }
+    //Si la page est celle de la page regroupant les articles (si l'état est 'blog')
+    if(state.page === "blog")
+    {
+        //alors on charge le fichier Blog.jsx
+        return (
+            <>
+            //On passe en props la fonction "Showpost" 
+                <Blog showPost={showPost}/>
+            </>
+        )
+    }
+    else
+    {
+        //Sinon on charge le fichier Post.jsx
+        return (
+            <>
+                //Le lien qui permet de revenir en arrière
+                <a href="index.html" className="back-link" onClick={backToBlog}>← Retour à l'accueil</a>
+                <Post post={state.post}/>
+            </>
+        )
+    }
 
 }
 
